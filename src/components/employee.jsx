@@ -76,6 +76,7 @@ class Employee extends Component {
           <h1>Employee Data</h1>
           <EmployeeTable 
             employees={employees}
+            sortColumn={sortColumn}
             onSort={this.handleSort}
             onDelete={this.handleDelete}
           />
