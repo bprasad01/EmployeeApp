@@ -30,6 +30,7 @@ class Employee extends Component {
     this.setState({ employees });
   };
 
+  // function for handling page
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
   };
@@ -38,10 +39,12 @@ class Employee extends Component {
     this.setState({ selectedDepartment: department, currentPage: 1 });
   };
 
+  // function for handling sort function
   handleSort = (sortColumn) => {
     this.setState({ sortColumn });
   };
 
+  // function for handling page Data
   getPageData = () => {
     const {
       pageSize,
