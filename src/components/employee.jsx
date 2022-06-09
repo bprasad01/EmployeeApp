@@ -5,7 +5,7 @@ import { getEmployees } from "../services/fakeEmployeesData";
 import { getDepartment } from "../services/fakeDepartmentData";
 import { paginate } from "../utils/paginate";
 import EmployeeTable from "./employeeTable";
-import _ from "lodash";
+import _, { filter } from "lodash";
 
 class Employee extends Component {
   state = {
@@ -13,11 +13,11 @@ class Employee extends Component {
     departments: [],
     currentPage: 1,
     pageSize: 4,
-    sortColumn: {path : "firstname", order : "asc"}
+    sortColumn: { path: "firstname", order: "asc" },
   };
 
   componentDidMount() {
-    const departments = [{ id : "", name : "All Employee"}, ...getDepartment()]
+    const departments = [{ id: "", name: "All Employee" }, ...getDepartment()];
     this.setState({ employees: getEmployees(), departments });
   }
   // function for delete employee data
@@ -35,14 +35,14 @@ class Employee extends Component {
   };
 
   handleDepartmentSelect = (department) => {
-    this.setState({ selectedDepartment: department, currentPage : 1 });
+    this.setState({ selectedDepartment: department, currentPage: 1 });
   };
 
-  handleSort = sortColumn => {
+  handleSort = (sortColumn) => {
     this.setState({ sortColumn });
-  }
-  render() {
-    const { length: count } = this.state.employees;
+  };
+
+  getPageData = () => {
     const {
       pageSize,
       currentPage,
@@ -51,15 +51,24 @@ class Employee extends Component {
       employees: allEmployee,
     } = this.state;
 
-    if (count === 0) return <p>There are no employee data available</p>;
+    const filtered =
+      selectedDepartment && selectedDepartment.id
+        ? allEmployee.filter(
+            (employee) => employee.department.id === selectedDepartment.id
+          )
+        : allEmployee;
 
-    const filtered = selectedDepartment && selectedDepartment.id
-      ? allEmployee.filter(
-          (employee) => employee.department.id === selectedDepartment.id)
-      : allEmployee;
-
-    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order])
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
     const employees = paginate(sorted, currentPage, pageSize);
+
+    return { totalCount: filtered.length, data: employees };
+  };
+  render() {
+    const { length: count } = this.state.employees;
+    const { pageSize, currentPage, sortColumn } = this.state;
+
+    if (count === 0) return <p>There are no employee data available</p>;
+    const { totalCount, data : employees } = this.getPageData();
 
     return (
       <div className="row mt-4">
@@ -72,9 +81,9 @@ class Employee extends Component {
         </div>
 
         <div className="col">
-          <p>Showing {filtered.length} Employee Data Available</p>
+          <p>Showing {totalCount} Employee Data Available</p>
           <h1>Employee Data</h1>
-          <EmployeeTable 
+          <EmployeeTable
             employees={employees}
             sortColumn={sortColumn}
             onSort={this.handleSort}
@@ -82,7 +91,7 @@ class Employee extends Component {
           />
 
           <Pagination
-            itemsCount={filtered.length}
+            itemsCount={totalCount}
             pageSize={pageSize}
             currentPage={currentPage}
             onPageChange={this.handlePageChange}
