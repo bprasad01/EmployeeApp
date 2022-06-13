@@ -5,7 +5,7 @@ import { getEmployees } from "../services/fakeEmployeesData";
 import { getDepartment } from "../services/fakeDepartmentData";
 import { paginate } from "../utils/paginate";
 import EmployeeTable from "./employeeTable";
-import _, { filter } from "lodash";
+import _  from "lodash";
 
 class Employee extends Component {
   state = {
@@ -15,7 +15,7 @@ class Employee extends Component {
     pageSize: 4,
     sortColumn: { path: "firstname", order: "asc" },
   };
-
+   
   componentDidMount() {
     const departments = [{ id: "", name: "All Employee" }, ...getDepartment()];
     this.setState({ employees: getEmployees(), departments });
@@ -36,6 +36,7 @@ class Employee extends Component {
   };
 
   handleDepartmentSelect = (department) => {
+    console.log(department);
     this.setState({ selectedDepartment: department, currentPage: 1 });
   };
 
@@ -43,6 +44,12 @@ class Employee extends Component {
   handleSort = (sortColumn) => {
     this.setState({ sortColumn });
   };
+
+  handleEdit = employee => {
+    let empData = employee;
+    console.log(empData);
+    
+  }
 
   // function for handling page Data
   getPageData = () => {
@@ -75,7 +82,7 @@ class Employee extends Component {
 
     return (
       <div className="row mt-4">
-        <div className="col-3">
+        <div className="col-2">
           <ListGroup
             items={this.state.departments}
             selectedItem={this.state.selectedDepartment}
@@ -83,7 +90,7 @@ class Employee extends Component {
           />
         </div>
 
-        <div className="col">
+        <div className="col-10">
           <p>Showing {totalCount} Employee Data Available</p>
           <h1>Employee Data</h1>
           <EmployeeTable
@@ -91,6 +98,7 @@ class Employee extends Component {
             sortColumn={sortColumn}
             onSort={this.handleSort}
             onDelete={this.handleDelete}
+            onEdit={this.handleEdit}
           />
 
           <Pagination

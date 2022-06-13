@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import TableHeader from "../common/tableHeader";
-import TableBody from "../common/tableBody";
+import { Link } from "react-router-dom";
 import Table from "../common/table";
 
 class EmployeeTable extends Component {
@@ -20,8 +19,24 @@ class EmployeeTable extends Component {
       DELETE
     </button>
     },
+    { key : "edit", label : "Edit",
+      content : employee =>  <Link to={`/employees/${employee.id}`}><button
+      className="btn btn-primary btn-sm"
+      onClick={() => this.props.onEdit(employee)}
+    >
+     Edit
+    </button> </Link>
+    },
+    { key : "attendence", label : "Attendence",
+      content : employee =>  <Link to={`/attendence/${employee.id}`}><button
+      className="btn btn-primary btn-sm"
+    >
+     Attendence
+    </button> </Link>
+    }
   ]
   render() {
+    
     const { employees, columns, onSort, sortColumn } = this.props;
     return (
       <Table data={employees} columns={this.columns} onSort={onSort} sortColumn={sortColumn}/>
