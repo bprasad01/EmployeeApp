@@ -1,14 +1,30 @@
 import React, { Component } from "react";
 import { getAttendence } from "../services/fakeEmployeeAttendence";
 import moment from "moment";
+import Pagination from "../common/pagination";
+import { paginate } from "../utils/paginate";
+import _ from "lodash";
 
 class Attendence extends Component {
   state = {
     attendences: getAttendence(),
+    pageSize : 7,
+    currentPage : 1,
+  };
+  
+  // function for handling page
+  handlePageChange = (page) => {
+    this.setState({ currentPage: page });
   };
 
   render() {
-    const { attendences } = this.state;
+    
+    const attend = this.state.attendences.map( item => item);
+    const indexLength = attend[0].attendance;
+    const count = indexLength.length;
+    const { pageSize, currentPage, attendences : allAttendence } = this.state;
+    const attendences = paginate(allAttendence, currentPage, pageSize);
+
     return (
       <div>
         <h1>Attendence</h1>
@@ -25,7 +41,7 @@ class Attendence extends Component {
             {attendences.map((atten) => (
               <>
                 {atten.attendance.map((empData) => (
-                  <tr key={atten.emp_id}>
+                  <tr key={empData.date}>
                     <td key={empData.date}>
                       {moment(empData.date).format("MMM Do YY")}
                     </td>
@@ -38,6 +54,12 @@ class Attendence extends Component {
             ))}
           </tbody>
         </table>
+        <Pagination 
+        itemsCount={count}
+        pageSize = {pageSize}
+        currentPage={currentPage}
+        onPageChange={this.handlePageChange}
+        />
       </div>
     );
   }

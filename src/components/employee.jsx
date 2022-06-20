@@ -5,7 +5,8 @@ import { getEmployees } from "../services/fakeEmployeesData";
 import { getDepartment } from "../services/fakeDepartmentData";
 import { paginate } from "../utils/paginate";
 import EmployeeTable from "./employeeTable";
-import _  from "lodash";
+import _ from "lodash";
+import EditEmployee from './employeeEdit';
 
 class Employee extends Component {
   state = {
@@ -15,7 +16,7 @@ class Employee extends Component {
     pageSize: 4,
     sortColumn: { path: "firstname", order: "asc" },
   };
-   
+
   componentDidMount() {
     const departments = [{ id: "", name: "All Employee" }, ...getDepartment()];
     this.setState({ employees: getEmployees(), departments });
@@ -36,7 +37,6 @@ class Employee extends Component {
   };
 
   handleDepartmentSelect = (department) => {
-    console.log(department);
     this.setState({ selectedDepartment: department, currentPage: 1 });
   };
 
@@ -45,11 +45,15 @@ class Employee extends Component {
     this.setState({ sortColumn });
   };
 
-  handleEdit = employee => {
-    let empData = employee;
-    console.log(empData);
-    
-  }
+  handleEdit = (employee) => {
+    console.log(employee);
+    const employees = this.state.employees.filter(
+      (emp) => emp.id == employee.id
+    );
+    console.log(employees);
+    // update the employees state
+    this.setState({ employees });
+  };
 
   // function for handling page Data
   getPageData = () => {
@@ -78,7 +82,7 @@ class Employee extends Component {
     const { pageSize, currentPage, sortColumn } = this.state;
 
     if (count === 0) return <p>There are no employee data available</p>;
-    const { totalCount, data : employees } = this.getPageData();
+    const { totalCount, data: employees } = this.getPageData();
 
     return (
       <div className="row mt-4">
@@ -108,6 +112,7 @@ class Employee extends Component {
             onPageChange={this.handlePageChange}
           />
         </div>
+        
       </div>
     );
   }

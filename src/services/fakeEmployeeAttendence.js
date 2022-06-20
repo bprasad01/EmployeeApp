@@ -1,6 +1,6 @@
 const emp_attendance = [
 	{
-	emp_id : 1,
+	employees : { id : 1},
 	attendance : [
 			{ 
 				'date': '01-01-2022', 
@@ -65,7 +65,10 @@ const emp_attendance = [
 		]
 	},
 	
+	
 ];
+
+
 export function getAttendence(){
 	return emp_attendance;
 }

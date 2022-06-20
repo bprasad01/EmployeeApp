@@ -4,6 +4,12 @@ import Table from "../common/table";
 
 class EmployeeTable extends Component {
 
+
+  handleEmployeeAttendence = employee =>{
+    console.log(employee);
+    this.setState({selectedEmployee : employee})
+  }
+
   columns = [
     { path : "id", label : "ID" },
     { path : "firstname", label : "First Name" },
@@ -29,7 +35,7 @@ class EmployeeTable extends Component {
     },
     { key : "attendence", label : "Attendence",
       content : employee =>  <Link to={`/attendence/${employee.id}`}><button
-      className="btn btn-primary btn-sm"
+      className="btn btn-primary btn-sm" onClick={ () => this.handleEmployeeAttendence(employee)}
     >
      Attendence
     </button> </Link>

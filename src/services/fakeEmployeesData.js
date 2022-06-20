@@ -1,9 +1,11 @@
 const employees = [
-    {
+     {
         id : 1,
         firstname : "Bhavin",
         lastname : "Bhatewera" ,
         email : "bhavin01b@gmail.com",
+        username : "bhavin01",
+        password : "bhavin@01",
         department: { id: "103", name: "UI/UX" },
         contact : 9098550856
     },
@@ -12,6 +14,8 @@ const employees = [
         firstname : "Rohit",
         lastname : "Agrawal" ,
         email : "ragrawal@gmail.com",
+        username : "rohit12",
+        password : "rohit@12",
         department: { id: "102", name: "QA" },
         contact : 8907123456
     },
@@ -20,6 +24,8 @@ const employees = [
         firstname : "Akshat",
         lastname : "Rathore" ,
         email : "akshat@gmail.com",
+        username : "rathore23",
+        password : "rathore@23",
         department: { id: "102", name: "QA" },
         contact : 9981276345
     },
@@ -28,6 +34,8 @@ const employees = [
         firstname : "Neha",
         lastname : "Sharma" ,
         email : "nsharma01b@gmail.com",
+        username : "nsharma",
+        password : "nsharma@12",
         department: { id: "103", name: "UI/UX" },
         contact : 8871204563
     },
@@ -36,6 +44,8 @@ const employees = [
         firstname : "Sumiran",
         lastname : "Singh" ,
         email : "sumiranb@gmail.com",
+        username : "singh45",
+        password : "singh@45",
         department: { id: "103", name: "UI/UX" },
         contact : 9170325648
     },
@@ -44,6 +54,8 @@ const employees = [
         firstname : "Chirag",
         lastname : "Bajaj" ,
         email : "chirag@gmail.com",
+        username : "chirag22",
+        password : "chirag@22",
         department: { id: "101", name: "Development" },
         contact : 9926843168
     },
@@ -52,6 +64,8 @@ const employees = [
         firstname : "Abhilash",
         lastname : "Sahu" ,
         email : "abhilash@gmail.com",
+        username : "abhilash09",
+        password : "abhilash@09",
         department: { id: "101", name: "Development" },
         contact : 8901295693
     },
@@ -60,6 +74,8 @@ const employees = [
         firstname : "Tarun",
         lastname : "Sharma" ,
         email : "tarunsharma@gmail.com",
+        username : "tarun09",
+        password : "tarun@09",
         department: { id: "101", name: "Development" },
         contact : 9821305864
     },
@@ -68,6 +84,8 @@ const employees = [
         firstname : "Harshita",
         lastname : "Porwal" ,
         email : "harshita@gmail.com",
+        username : "hporwal76",
+        password : "hporwal@76",
         department: { id: "103", name: "UI/UX" },
         contact : 7789013452
     },
@@ -76,6 +94,8 @@ const employees = [
         firstname : "Aarav",
         lastname : "Rathore" ,
         email : "aarav@gmail.com",
+        username : "aarav34",
+        password : "aarav@34",
         department: { id: "102", name: "QA" },
         contact : 9045812934
     },
@@ -84,11 +104,13 @@ const employees = [
         firstname : "Jaspreet Singh",
         lastname : "Rajpal" ,
         email : "jaspreet@gmail.com",
+        username : "jaspreet33",
+        password : "jsapreet@33",
         department: { id: "101", name: "Development" },
         contact : 9826731414
     },
 ]
 
 export function getEmployees(){
-    return employees;
+    return employees.filter(g => g);
 }
